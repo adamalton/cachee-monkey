@@ -32,7 +32,7 @@ def cache_results(function_or_cache_time):
             result = cache.get(cache_key)
             if result is None:
                 result = function(*args, **kwargs)
-                cache.set(cache_key, cache_time)
+                cache.set(cache_key, result, cache_time)
             return result
         return replacement
 
@@ -45,7 +45,7 @@ def cache_results(function_or_cache_time):
     return decorator
 
 
-def clear_result(function, args, kwargs):
+def clear_result(function, *args, **kwargs):
     """ Clear the cache entry for the given function and the given args and kwargs. """
     key = _get_cache_key(function, args, kwargs)
     cache.delete(key)
@@ -57,6 +57,8 @@ def _get_cache_key(function, args=(), kwargs=None):
     """
     kwargs = kwargs or {}
     key_hash = hashlib.md5()
-    key_hash.update(function.__name__, function.__module__)
+    key_hash.update(function.__name__)
+    key_hash.update(function.__module__)
+    key_hash.update("%r" % args)
+    key_hash.update("%r" % kwargs)
     return key_hash.hexdigest()
-
