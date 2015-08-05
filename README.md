@@ -7,7 +7,7 @@ Currently uses `django.core.cache` for caching results, but could/should be made
 ## Usage
 
 ```
-from cachee.cachee import cache_results, clear_result
+from cachee.mokney import cache_results, clear_result
 
 # Cache the results of calls to a function, like so:
 

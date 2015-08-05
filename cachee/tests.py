@@ -6,7 +6,7 @@ from django.core.cache import cache
 from django.test import TestCase
 
 # CACHEE
-from cachee.cachee import cache_results, clear_result
+from cachee.monkey import cache_results, clear_result
 
 FUNCTION_CALLS = []
 
